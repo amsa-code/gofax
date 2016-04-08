@@ -1,0 +1,1362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- copied from https://sendfax-api.gofax.com.au/fax/sendfaxapi.asmx?WSDL -->
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.gofax.com.au/" xmlns:s1="http://microsoft.com/wsdl/types/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://www.gofax.com.au/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.gofax.com.au/">
+      <s:import namespace="http://microsoft.com/wsdl/types/" />
+      <s:element name="ConvertFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="File" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="LoginToken" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConvertFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConvertFileResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendBulkFaxFMC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Token" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="ClientID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="Numbers" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="Document" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="DocumentName" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="HighQuality" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Header" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CSID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ScheduledSend" nillable="true" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendBulkFaxFMCResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendBulkFaxFMCResult" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetQueueStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetQueueStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetQueueStatusResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxQuote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Destination" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Pages" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="HighQuality" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxQuoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendFaxQuoteResult" nillable="true" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateLoginToken">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Computer" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Expires" nillable="true" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateLoginTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateLoginTokenResult" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceivedFaxes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceivedFaxesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReceivedFaxesResult" type="tns:ArrayOfClientReceivedFax" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfClientReceivedFax">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClientReceivedFax" nillable="true" type="tns:ClientReceivedFax" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClientReceivedFax">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Number" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ClientID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Received" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SenderFaxID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SenderISDNID" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransmissionTime" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="NumberOfPages" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransmissionSpeed" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="State" nillable="true" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="GoFaxID" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ChargeUnits" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsRead" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Received_Local" nillable="true" type="s:dateTime" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ReceivedFaxesForDay">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="date" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceivedFaxesForDayResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReceivedFaxesForDayResult" type="tns:ArrayOfClientReceivedFax" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FixedEmailAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FixedEmailAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FixedEmailAddressResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SentFaxes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SentFaxesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SentFaxesResult" type="tns:ArrayOfSendFaxAttachmentDetail" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSendFaxAttachmentDetail">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SendFaxAttachmentDetail" nillable="true" type="tns:SendFaxAttachmentDetail" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SendFaxAttachmentDetail">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="SendFaxTransmissionID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Error" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransmissionID" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ConversionID" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ConversionComplete" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="ConversionStart" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ConversionFinish" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="FromAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ToNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="ClientID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransmissionDate" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="Pages" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransmissionStart" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="TransmissionComplete" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="0" maxOccurs="1" name="SendTo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SendHQ" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Charge" nillable="true" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="DeleteData" nillable="true" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="RetryDate" nillable="true" type="s:dateTime" />
+          <s:element minOccurs="1" maxOccurs="1" name="ConversionSize" nillable="true" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Retries" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subject" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SentFaxesOutbox">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SentFaxesOutboxResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SentFaxesOutboxResult" type="tns:ArrayOfSendFaxAttachmentDetail" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFaxDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FaxID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFaxDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFaxDocumentResult" type="tns:ArrayOfSendFaxAttachmentDetail" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SentFax_Cancel">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="faxID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SentFax_CancelResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SentFax_CancelResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResendFax">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="TransactionID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ResendFaxResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ResendFaxResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxDocument_V2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendFrom" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="HighQuality" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Header" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CSID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="retries" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxDocument_V2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendFaxDocument_V2Result" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxDocument_V3">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendFrom" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="HighQuality" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Header" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CSID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="retries" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DeferDate" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxDocument_V3Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendFaxDocument_V3Result" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxDocument_V4">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendFrom" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="HighQuality" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Header" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CSID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="retries" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DeferDate" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CallbackURL" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxDocument_V4Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendFaxDocument_V4Result" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendTo" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendFrom" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="HighQuality" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Header" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CSID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="retries" nillable="true" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="DeferDate" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="CallbackURL" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendFaxDocumentsResult" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendFrom" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="HighQuality" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Header" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CSID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxDocumentResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SendFaxDocument_GetID">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendFrom" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="HighQuality" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="Header" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CSID" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxDocument_GetIDResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendFaxDocument_GetIDResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFax_V2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Data" type="tns:ArrayOfBase64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileNames" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendFrom" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="HQ" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="ScheduleSend" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBase64Binary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="base64Binary" nillable="true" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendFax_V2Response">
+        <s:complexType />
+      </s:element>
+      <s:element name="SendFax">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Data" type="tns:ArrayOfBase64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileNames" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendFrom" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="SendFaxFMC">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="Token" type="s1:guid" />
+            <s:element minOccurs="0" maxOccurs="1" name="Data" type="tns:ArrayOfBase64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileNames" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="SendTo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sendFrom" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="clientID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="HQ" nillable="true" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="Schedule" nillable="true" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxFMCResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="LegalTypes">
+        <s:complexType />
+      </s:element>
+      <s:element name="LegalTypesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="LegalTypesResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="sendFaxID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendFaxDataResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveFaxData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="receiveFaxID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+            <s:element minOccurs="1" maxOccurs="1" name="UseTiff" nillable="true" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveFaxDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReceiveFaxDataResult" type="s:base64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckHaveAccess">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckHaveAccessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckHaveAccessResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxTransmission_IDsForDate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="day" nillable="true" type="s:dateTime" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxTransmission_IDsForDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendFaxTransmission_IDsForDateResult" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxTransmission_GetStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FaxID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="token" type="s1:guid" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendFaxTransmission_GetStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendFaxTransmission_GetStatusResult" type="tns:SendFaxTransmissionStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SendFaxTransmissionStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="InProgress" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Error" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Success" type="s:boolean" />
+        </s:sequence>
+      </s:complexType>
+    </s:schema>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
+      <s:simpleType name="guid">
+        <s:restriction base="s:string">
+          <s:pattern value="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ConvertFileSoapIn">
+    <wsdl:part name="parameters" element="tns:ConvertFile" />
+  </wsdl:message>
+  <wsdl:message name="ConvertFileSoapOut">
+    <wsdl:part name="parameters" element="tns:ConvertFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendBulkFaxFMCSoapIn">
+    <wsdl:part name="parameters" element="tns:SendBulkFaxFMC" />
+  </wsdl:message>
+  <wsdl:message name="SendBulkFaxFMCSoapOut">
+    <wsdl:part name="parameters" element="tns:SendBulkFaxFMCResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetQueueStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetQueueStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetQueueStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetQueueStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxQuoteSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFaxQuote" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxQuoteSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxQuoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateLoginTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateLoginToken" />
+  </wsdl:message>
+  <wsdl:message name="CreateLoginTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateLoginTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceivedFaxesSoapIn">
+    <wsdl:part name="parameters" element="tns:ReceivedFaxes" />
+  </wsdl:message>
+  <wsdl:message name="ReceivedFaxesSoapOut">
+    <wsdl:part name="parameters" element="tns:ReceivedFaxesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceivedFaxesForDaySoapIn">
+    <wsdl:part name="parameters" element="tns:ReceivedFaxesForDay" />
+  </wsdl:message>
+  <wsdl:message name="ReceivedFaxesForDaySoapOut">
+    <wsdl:part name="parameters" element="tns:ReceivedFaxesForDayResponse" />
+  </wsdl:message>
+  <wsdl:message name="FixedEmailAddressSoapIn">
+    <wsdl:part name="parameters" element="tns:FixedEmailAddress" />
+  </wsdl:message>
+  <wsdl:message name="FixedEmailAddressSoapOut">
+    <wsdl:part name="parameters" element="tns:FixedEmailAddressResponse" />
+  </wsdl:message>
+  <wsdl:message name="SentFaxesSoapIn">
+    <wsdl:part name="parameters" element="tns:SentFaxes" />
+  </wsdl:message>
+  <wsdl:message name="SentFaxesSoapOut">
+    <wsdl:part name="parameters" element="tns:SentFaxesResponse" />
+  </wsdl:message>
+  <wsdl:message name="SentFaxesOutboxSoapIn">
+    <wsdl:part name="parameters" element="tns:SentFaxesOutbox" />
+  </wsdl:message>
+  <wsdl:message name="SentFaxesOutboxSoapOut">
+    <wsdl:part name="parameters" element="tns:SentFaxesOutboxResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFaxDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFaxDocument" />
+  </wsdl:message>
+  <wsdl:message name="GetFaxDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFaxDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="SentFax_CancelSoapIn">
+    <wsdl:part name="parameters" element="tns:SentFax_Cancel" />
+  </wsdl:message>
+  <wsdl:message name="SentFax_CancelSoapOut">
+    <wsdl:part name="parameters" element="tns:SentFax_CancelResponse" />
+  </wsdl:message>
+  <wsdl:message name="ResendFaxSoapIn">
+    <wsdl:part name="parameters" element="tns:ResendFax" />
+  </wsdl:message>
+  <wsdl:message name="ResendFaxSoapOut">
+    <wsdl:part name="parameters" element="tns:ResendFaxResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDocument_V2SoapIn">
+    <wsdl:part name="parameters" element="tns:SendFaxDocument_V2" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDocument_V2SoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxDocument_V2Response" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDocument_V3SoapIn">
+    <wsdl:part name="parameters" element="tns:SendFaxDocument_V3" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDocument_V3SoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxDocument_V3Response" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDocument_V4SoapIn">
+    <wsdl:part name="parameters" element="tns:SendFaxDocument_V4" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDocument_V4SoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxDocument_V4Response" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFaxDocuments" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFaxDocument" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDocument_GetIDSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFaxDocument_GetID" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDocument_GetIDSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxDocument_GetIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFax_V2SoapIn">
+    <wsdl:part name="parameters" element="tns:SendFax_V2" />
+  </wsdl:message>
+  <wsdl:message name="SendFax_V2SoapOut">
+    <wsdl:part name="parameters" element="tns:SendFax_V2Response" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFax" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxFMCSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFaxFMC" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxFMCSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxFMCResponse" />
+  </wsdl:message>
+  <wsdl:message name="LegalTypesSoapIn">
+    <wsdl:part name="parameters" element="tns:LegalTypes" />
+  </wsdl:message>
+  <wsdl:message name="LegalTypesSoapOut">
+    <wsdl:part name="parameters" element="tns:LegalTypesResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDataSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFaxData" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxDataSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveFaxDataSoapIn">
+    <wsdl:part name="parameters" element="tns:ReceiveFaxData" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveFaxDataSoapOut">
+    <wsdl:part name="parameters" element="tns:ReceiveFaxDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="CheckHaveAccessSoapIn">
+    <wsdl:part name="parameters" element="tns:CheckHaveAccess" />
+  </wsdl:message>
+  <wsdl:message name="CheckHaveAccessSoapOut">
+    <wsdl:part name="parameters" element="tns:CheckHaveAccessResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxTransmission_IDsForDateSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFaxTransmission_IDsForDate" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxTransmission_IDsForDateSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxTransmission_IDsForDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxTransmission_GetStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:SendFaxTransmission_GetStatus" />
+  </wsdl:message>
+  <wsdl:message name="SendFaxTransmission_GetStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:SendFaxTransmission_GetStatusResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SendFaxAPISoap">
+    <wsdl:operation name="ConvertFile">
+      <wsdl:input message="tns:ConvertFileSoapIn" />
+      <wsdl:output message="tns:ConvertFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendBulkFaxFMC">
+      <wsdl:input message="tns:SendBulkFaxFMCSoapIn" />
+      <wsdl:output message="tns:SendBulkFaxFMCSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetQueueStatus">
+      <wsdl:input message="tns:GetQueueStatusSoapIn" />
+      <wsdl:output message="tns:GetQueueStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxQuote">
+      <wsdl:input message="tns:SendFaxQuoteSoapIn" />
+      <wsdl:output message="tns:SendFaxQuoteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateLoginToken">
+      <wsdl:input message="tns:CreateLoginTokenSoapIn" />
+      <wsdl:output message="tns:CreateLoginTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceivedFaxes">
+      <wsdl:input message="tns:ReceivedFaxesSoapIn" />
+      <wsdl:output message="tns:ReceivedFaxesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceivedFaxesForDay">
+      <wsdl:input message="tns:ReceivedFaxesForDaySoapIn" />
+      <wsdl:output message="tns:ReceivedFaxesForDaySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FixedEmailAddress">
+      <wsdl:input message="tns:FixedEmailAddressSoapIn" />
+      <wsdl:output message="tns:FixedEmailAddressSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SentFaxes">
+      <wsdl:input message="tns:SentFaxesSoapIn" />
+      <wsdl:output message="tns:SentFaxesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SentFaxesOutbox">
+      <wsdl:input message="tns:SentFaxesOutboxSoapIn" />
+      <wsdl:output message="tns:SentFaxesOutboxSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFaxDocument">
+      <wsdl:input message="tns:GetFaxDocumentSoapIn" />
+      <wsdl:output message="tns:GetFaxDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SentFax_Cancel">
+      <wsdl:input message="tns:SentFax_CancelSoapIn" />
+      <wsdl:output message="tns:SentFax_CancelSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ResendFax">
+      <wsdl:input message="tns:ResendFaxSoapIn" />
+      <wsdl:output message="tns:ResendFaxSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument_V2">
+      <wsdl:input message="tns:SendFaxDocument_V2SoapIn" />
+      <wsdl:output message="tns:SendFaxDocument_V2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument_V3">
+      <wsdl:input message="tns:SendFaxDocument_V3SoapIn" />
+      <wsdl:output message="tns:SendFaxDocument_V3SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument_V4">
+      <wsdl:input message="tns:SendFaxDocument_V4SoapIn" />
+      <wsdl:output message="tns:SendFaxDocument_V4SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocuments">
+      <wsdl:input message="tns:SendFaxDocumentsSoapIn" />
+      <wsdl:output message="tns:SendFaxDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument">
+      <wsdl:input message="tns:SendFaxDocumentSoapIn" />
+      <wsdl:output message="tns:SendFaxDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument_GetID">
+      <wsdl:input message="tns:SendFaxDocument_GetIDSoapIn" />
+      <wsdl:output message="tns:SendFaxDocument_GetIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFax_V2">
+      <wsdl:input message="tns:SendFax_V2SoapIn" />
+      <wsdl:output message="tns:SendFax_V2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFax">
+      <wsdl:input message="tns:SendFaxSoapIn" />
+      <wsdl:output message="tns:SendFaxSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxFMC">
+      <wsdl:input message="tns:SendFaxFMCSoapIn" />
+      <wsdl:output message="tns:SendFaxFMCSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="LegalTypes">
+      <wsdl:input message="tns:LegalTypesSoapIn" />
+      <wsdl:output message="tns:LegalTypesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxData">
+      <wsdl:input message="tns:SendFaxDataSoapIn" />
+      <wsdl:output message="tns:SendFaxDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveFaxData">
+      <wsdl:input message="tns:ReceiveFaxDataSoapIn" />
+      <wsdl:output message="tns:ReceiveFaxDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckHaveAccess">
+      <wsdl:input message="tns:CheckHaveAccessSoapIn" />
+      <wsdl:output message="tns:CheckHaveAccessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxTransmission_IDsForDate">
+      <wsdl:input message="tns:SendFaxTransmission_IDsForDateSoapIn" />
+      <wsdl:output message="tns:SendFaxTransmission_IDsForDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxTransmission_GetStatus">
+      <wsdl:input message="tns:SendFaxTransmission_GetStatusSoapIn" />
+      <wsdl:output message="tns:SendFaxTransmission_GetStatusSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SendFaxAPISoap" type="tns:SendFaxAPISoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConvertFile">
+      <soap:operation soapAction="http://www.gofax.com.au/ConvertFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBulkFaxFMC">
+      <soap:operation soapAction="http://www.gofax.com.au/SendBulkFaxFMC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQueueStatus">
+      <soap:operation soapAction="http://www.gofax.com.au/GetQueueStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxQuote">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFaxQuote" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateLoginToken">
+      <soap:operation soapAction="http://www.gofax.com.au/CreateLoginToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceivedFaxes">
+      <soap:operation soapAction="http://www.gofax.com.au/ReceivedFaxes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceivedFaxesForDay">
+      <soap:operation soapAction="http://www.gofax.com.au/ReceivedFaxesForDay" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FixedEmailAddress">
+      <soap:operation soapAction="http://www.gofax.com.au/FixedEmailAddress" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SentFaxes">
+      <soap:operation soapAction="http://www.gofax.com.au/SentFaxes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SentFaxesOutbox">
+      <soap:operation soapAction="http://www.gofax.com.au/SentFaxesOutbox" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFaxDocument">
+      <soap:operation soapAction="http://www.gofax.com.au/GetFaxDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SentFax_Cancel">
+      <soap:operation soapAction="http://www.gofax.com.au/SentFax_Cancel" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResendFax">
+      <soap:operation soapAction="http://www.gofax.com.au/ResendFax" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument_V2">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFaxDocument_V2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument_V3">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFaxDocument_V3" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument_V4">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFaxDocument_V4" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocuments">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFaxDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFaxDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument_GetID">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFaxDocument_GetID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFax_V2">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFax_V2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFax">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFax" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxFMC">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFaxFMC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LegalTypes">
+      <soap:operation soapAction="http://www.gofax.com.au/LegalTypes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxData">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFaxData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveFaxData">
+      <soap:operation soapAction="http://www.gofax.com.au/ReceiveFaxData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckHaveAccess">
+      <soap:operation soapAction="http://www.gofax.com.au/CheckHaveAccess" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxTransmission_IDsForDate">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFaxTransmission_IDsForDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxTransmission_GetStatus">
+      <soap:operation soapAction="http://www.gofax.com.au/SendFaxTransmission_GetStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SendFaxAPISoap12" type="tns:SendFaxAPISoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ConvertFile">
+      <soap12:operation soapAction="http://www.gofax.com.au/ConvertFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendBulkFaxFMC">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendBulkFaxFMC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetQueueStatus">
+      <soap12:operation soapAction="http://www.gofax.com.au/GetQueueStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxQuote">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFaxQuote" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateLoginToken">
+      <soap12:operation soapAction="http://www.gofax.com.au/CreateLoginToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceivedFaxes">
+      <soap12:operation soapAction="http://www.gofax.com.au/ReceivedFaxes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceivedFaxesForDay">
+      <soap12:operation soapAction="http://www.gofax.com.au/ReceivedFaxesForDay" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FixedEmailAddress">
+      <soap12:operation soapAction="http://www.gofax.com.au/FixedEmailAddress" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SentFaxes">
+      <soap12:operation soapAction="http://www.gofax.com.au/SentFaxes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SentFaxesOutbox">
+      <soap12:operation soapAction="http://www.gofax.com.au/SentFaxesOutbox" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFaxDocument">
+      <soap12:operation soapAction="http://www.gofax.com.au/GetFaxDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SentFax_Cancel">
+      <soap12:operation soapAction="http://www.gofax.com.au/SentFax_Cancel" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResendFax">
+      <soap12:operation soapAction="http://www.gofax.com.au/ResendFax" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument_V2">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFaxDocument_V2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument_V3">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFaxDocument_V3" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument_V4">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFaxDocument_V4" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocuments">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFaxDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFaxDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxDocument_GetID">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFaxDocument_GetID" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFax_V2">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFax_V2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFax">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFax" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxFMC">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFaxFMC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LegalTypes">
+      <soap12:operation soapAction="http://www.gofax.com.au/LegalTypes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxData">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFaxData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveFaxData">
+      <soap12:operation soapAction="http://www.gofax.com.au/ReceiveFaxData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckHaveAccess">
+      <soap12:operation soapAction="http://www.gofax.com.au/CheckHaveAccess" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxTransmission_IDsForDate">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFaxTransmission_IDsForDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendFaxTransmission_GetStatus">
+      <soap12:operation soapAction="http://www.gofax.com.au/SendFaxTransmission_GetStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SendFaxAPI">
+    <wsdl:port name="SendFaxAPISoap" binding="tns:SendFaxAPISoap">
+      <soap:address location="https://sendfax-api.gofax.com.au/fax/sendfaxapi.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SendFaxAPISoap12" binding="tns:SendFaxAPISoap12">
+      <soap12:address location="https://sendfax-api.gofax.com.au/fax/sendfaxapi.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
